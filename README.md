@@ -11,7 +11,8 @@ The form should have the following fields, each using the appropriate HTML input
 - Volunteer Date: Date, Required
 - Location: Select, Required
   - Will load data from the following url using the browser native fetch function, the axios library, or other promise based HTTP library, we recomend fetch as it's the simplest to use and doesn't require installing dependencies
-  - 
+  - URL: https://raw.githubusercontent.com/beattyml1/frontend-interview/main/data.json
+  - Data will be an array with code and description properties on each item. The value should be the code and the description should be what is displayed to the user.
 - Pronouns: Checkboxes/Checklist, Optional, Supports multiple values
   - Should have the following options 
     -  He/Him
