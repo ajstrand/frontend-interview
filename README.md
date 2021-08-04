@@ -30,7 +30,11 @@ The forms reset button can just use the default handling.
 This form should be useable and good looking on both mobile and desktop. We recomend using CSS framework such as bootstrap or foundation to accomplish this with minimal effort.
 
 
-
+## Minimal Vue Setup
+If you want to use vue you can run the following in your repo directory to get a basic vue app setup
+```
+npx --ignore-existing --package @vue/cli vue create --default .
+```
 
 
 
