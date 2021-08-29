@@ -1,54 +1,59 @@
 import React, { useState, useEffect } from "react";
-
+import Alert from "@reach/alert";
 import Form from "react-bootstrap/esm/Form";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
+import Card from "react-bootstrap/esm/Card";
 import fetchData from "./fetchData";
 const placeholderSelectData = () => (
-  <option disabled value="0">
+  <option disabled selected value="0">
     Please choose a location
   </option>
 );
+const initialState = {
+  name: "",
+  email: "",
+  phone: "",
+  location: "0",
+  pronouns: "",
+}
 function VolunteerForm() {
   const [validated, setValidated] = useState(false);
   const [locationData, setLocationData] = useState([]);
   const [pronounInput, setPronounInput] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    pronouns: "",
-  })
+  const [userData, setUserData] = useState(initialState);
+
   useEffect(() => {
     const urlToFetch =
       "https://raw.githubusercontent.com/beattyml1/frontend-interview/main/data.json";
     async function grabLocations() {
       const data = await fetchData(urlToFetch);
       setLocationData(data);
-      console.log(data);
     }
 
     grabLocations();
   }, []);
 
   const checkSelectValue = (e) => {
-    console.log(e.target.value);
-    if (e.target.value === "input") {
+    const {value} = e.target;
+    if (value === "input") {
       setPronounInput(true);
-    }
-    else {
-        saveFormData(e)
+    } else {
+      saveFormData(e);
     }
   };
 
+  const clearData = () => {
+    setUserData(initialState);
+  };
+
   const saveFormData = (e) => {
-    let userDataCopy = userData;
-    userDataCopy[e.target.name] = e.target.value;
-    setUserData(userDataCopy)
-    console.log(userData)
+    const {name, value} = e.target;
+    setUserData(previousState => {
+      return {...previousState, [name]:value}
+    });
   };
 
   const handleSubmit = (event) => {
@@ -58,45 +63,83 @@ function VolunteerForm() {
       event.stopPropagation();
     }
 
+    event.preventDefault();
     setValidated(true);
   };
 
-  return (
-    <Container fluid>
+  const DataSentMessage = () => {
+    console.log(userData);
+    return (
+      <Container
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        fluid
+      >
+        <Card style={{ width: "100%", backgroundColor: "#eedfad" }}>
+          <Card.Body>
+            <Card.Title>
+              <Alert>
+              Application received 
+              </Alert>
+             </Card.Title>
+            <Card.Text>
+              <Alert>
+              Your data was sent for the volunteer form application. You will
+              receive a response in a few days.
+              </Alert>
+            
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        
+      </Container>
+    );
+  };
+
+  return validated ? (
+    <DataSentMessage />
+  ) : (
+    <Container style={{ height: "100%" }} fluid>
+      <h1 style={{ marginTop: "1em" }}>Volunteer Application Form</h1>
       <Form validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Group as={Col} md="4" controlId="nameID">
             <Form.Label>Name </Form.Label>
             <Form.Control
+              value={userData.name}
               name="name"
               required
               type="text"
               placeholder="Name"
-              defaultValue=""
-              onBlur={saveFormData}
+              onChange={e => saveFormData(e)}
             />
           </Form.Group>
 
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Group as={Col} md="4" controlId="emailID">
             <Form.Label>Email </Form.Label>
             <Form.Control
+              value={userData.email}
               name="email"
               required
               type="email"
               placeholder="hello@example.com"
-              defaultValue=""
-              onBlur={saveFormData}
+              onChange={e => saveFormData(e)}
             />
           </Form.Group>
 
-          <Form.Group xs="auto" as={Col} md="4" controlId="validationCustom01">
+          <Form.Group xs="auto" as={Col} md="4" controlId="phoneID">
             <Form.Label>Phone </Form.Label>
             <Form.Control
+              value={userData.phone}
               name="phone"
               type="phone"
               placeholder="111-555-6666"
-              defaultValue=""
-              onBlur={saveFormData}
+              onChange={e => saveFormData(e)}
             />
           </Form.Group>
         </Row>
@@ -104,8 +147,9 @@ function VolunteerForm() {
           <Form.Group as={Col} md="6">
             <Form.Label>Location</Form.Label>
             <Form.Control
+              value={userData.location}
               name="location"
-              onBlur={saveFormData}
+              onChange={e => saveFormData(e)}
               required
               as="select"
               className="me-sm-2"
@@ -128,29 +172,33 @@ function VolunteerForm() {
             aria-describedby="whatIsThisUsedFor"
             as={Col}
             md="6"
-            controlId="validationCustom03"
+            controlId="pronounID"
           >
             <Form.Label>Pronouns</Form.Label>
             {pronounInput ? (
               <Form.Control
-              name="pronouns"
+                value={userData.pronouns}
+                name="pronouns"
                 type="text"
                 placeholder="Please list your pronouns"
-                defaultValue=""
-                onBlur={saveFormData}
-              />
+                onChange={e => saveFormData(e)}
+                />
             ) : (
               <Form.Control
+                value={userData.pronouns}
                 name="pronouns"
                 as="select"
                 className="me-sm-2"
-                onBlur={checkSelectValue}
-              >
+                onChange={e => checkSelectValue(e)}
+                >
                 <option value="0">What are your pronouns?</option>
                 <option value="he/him">He/Him</option>
                 <option value="she/her">She/Her</option>
                 <option value="they/them">They/Them</option>
                 <option value="input">Other(please provide answer)</option>
+                <option value="Prefer not to disclose">
+                  Prefer not to disclose
+                </option>
               </Form.Control>
             )}
 
@@ -162,12 +210,12 @@ function VolunteerForm() {
           </Form.Group>
         </Row>
 
-        <Form.Group>
+        <Form.Group as={Col}>
           <Button type="submit">Submit Volunteer Application Form</Button>
         </Form.Group>
 
-        <Form.Group>
-          <Button>Reset form/clear form</Button>
+        <Form.Group style={{ marginTop: "2em" }}>
+          <Button onClick={clearData}>Clear Form</Button>
         </Form.Group>
       </Form>
     </Container>
