@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-
+import React, { useState, useEffect } from "react";
+import Alert from "@reach/alert";
 import Form from "react-bootstrap/esm/Form";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
@@ -82,13 +82,21 @@ function VolunteerForm() {
       >
         <Card style={{ width: "100%", backgroundColor: "#eedfad" }}>
           <Card.Body>
-            <Card.Title>Application received </Card.Title>
+            <Card.Title>
+              <Alert>
+              Application received 
+              </Alert>
+             </Card.Title>
             <Card.Text>
+              <Alert>
               Your data was sent for the volunteer form application. You will
               receive a response in a few days.
+              </Alert>
+            
             </Card.Text>
           </Card.Body>
         </Card>
+        
       </Container>
     );
   };
@@ -100,7 +108,7 @@ function VolunteerForm() {
       <h1 style={{ marginTop: "1em" }}>Volunteer Application Form</h1>
       <Form validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Group as={Col} md="4" controlId="nameID">
             <Form.Label>Name </Form.Label>
             <Form.Control
               value={userData.name}
@@ -112,7 +120,7 @@ function VolunteerForm() {
             />
           </Form.Group>
 
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Group as={Col} md="4" controlId="emailID">
             <Form.Label>Email </Form.Label>
             <Form.Control
               value={userData.email}
@@ -124,7 +132,7 @@ function VolunteerForm() {
             />
           </Form.Group>
 
-          <Form.Group xs="auto" as={Col} md="4" controlId="validationCustom01">
+          <Form.Group xs="auto" as={Col} md="4" controlId="phoneID">
             <Form.Label>Phone </Form.Label>
             <Form.Control
               value={userData.phone}
@@ -164,7 +172,7 @@ function VolunteerForm() {
             aria-describedby="whatIsThisUsedFor"
             as={Col}
             md="6"
-            controlId="validationCustom03"
+            controlId="pronounID"
           >
             <Form.Label>Pronouns</Form.Label>
             {pronounInput ? (

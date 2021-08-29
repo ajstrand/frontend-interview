@@ -232,6 +232,32 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.9.3.tgz#8b68da1ebd7fc603999cf6ebee34a4899a14b88e"
   integrity sha512-xDu17cEfh7Kid/d95kB6tZsLOmSWKCZKtprnhVepjsSaCij+lM3mItSJDuuHDMbCWTh8Ejmebwb+KONcCJ0eXQ==
 
+"@reach/alert@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@reach/alert/-/alert-0.16.0.tgz#12adbced9323087a362a92771c60ff5cafe902d7"
+  integrity sha512-lwlwGcMxUBoy//W6D1DCw+2q25w5Mfpe25FJKmhYR0umLr7Ii+2TLwiE8giMuFA97KNf6/9T2elLaeaNDoyKOw==
+  dependencies:
+    "@reach/utils" "0.16.0"
+    "@reach/visually-hidden" "0.16.0"
+    prop-types "^15.7.2"
+    tslib "^2.3.0"
+
+"@reach/utils@0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@reach/utils/-/utils-0.16.0.tgz#5b0777cf16a7cab1ddd4728d5d02762df0ba84ce"
+  integrity sha512-PCggBet3qaQmwFNcmQ/GqHSefadAFyNCUekq9RrWoaU9hh/S4iaFgf2MBMdM47eQj5i/Bk0Mm07cP/XPFlkN+Q==
+  dependencies:
+    tiny-warning "^1.0.3"
+    tslib "^2.3.0"
+
+"@reach/visually-hidden@0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.16.0.tgz#2a5e834af9e93c554065ff8cbb0907fbeb26ad02"
+  integrity sha512-IIayZ3jzJtI5KfcfRVtOMFkw2ef/1dMT8D9BUuFcU2ORZAWLNvnzj1oXNoIfABKl5wtsLjY6SGmkYQ+tMPN8TA==
+  dependencies:
+    prop-types "^15.7.2"
+    tslib "^2.3.0"
+
 "@restart/context@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@restart/context/-/context-2.1.4.tgz#a99d87c299a34c28bd85bb489cb07bfd23149c02"
@@ -675,10 +701,20 @@ supports-color@^5.3.0:
   dependencies:
     has-flag "^3.0.0"
 
+tiny-warning@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
+  integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
+
 to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
+
+tslib@^2.3.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 uncontrollable@^7.2.1:
   version "7.2.1"
