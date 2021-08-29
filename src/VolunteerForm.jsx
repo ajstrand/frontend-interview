@@ -12,17 +12,18 @@ const placeholderSelectData = () => (
     Please choose a location
   </option>
 );
+const initialState = {
+  name: "",
+  email: "",
+  phone: "",
+  location: "",
+  pronouns: "",
+}
 function VolunteerForm() {
   const [validated, setValidated] = useState(false);
   const [locationData, setLocationData] = useState([]);
   const [pronounInput, setPronounInput] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    pronouns: "",
-  });
+  const [userData, setUserData] = useState(initialState);
 
   useEffect(() => {
     const urlToFetch =
@@ -36,7 +37,8 @@ function VolunteerForm() {
   }, []);
 
   const checkSelectValue = (e) => {
-    if (e.target.value === "input") {
+    const {value} = e.target;
+    if (value === "input") {
       setPronounInput(true);
     } else {
       saveFormData(e);
@@ -44,19 +46,14 @@ function VolunteerForm() {
   };
 
   const clearData = () => {
-    setUserData({
-      name: "",
-      email: "",
-      phone: "",
-      location: "",
-      pronouns: "",
-    });
+    setUserData(initialState);
   };
 
   const saveFormData = (e) => {
-    let userDataCopy = userData;
-    userDataCopy[e.target.name] = e.target.value;
-    setUserData(userDataCopy);
+    const {name, value} = e.target;
+    setUserData(previousState => {
+      return {...previousState, [name]:value}
+    });
   };
 
   const handleSubmit = (event) => {
@@ -184,7 +181,7 @@ function VolunteerForm() {
                 name="pronouns"
                 as="select"
                 className="me-sm-2"
-                onChange={e => saveFormData(e)}
+                onChange={e => checkSelectValue(e)}
                 >
                 <option value="0">What are your pronouns?</option>
                 <option value="he/him">He/Him</option>
