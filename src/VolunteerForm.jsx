@@ -8,7 +8,7 @@ import Container from "react-bootstrap/esm/Container";
 import Card from "react-bootstrap/esm/Card";
 import fetchData from "./fetchData";
 const placeholderSelectData = () => (
-  <option disabled value="0">
+  <option disabled selected value="0">
     Please choose a location
   </option>
 );
@@ -16,7 +16,7 @@ const initialState = {
   name: "",
   email: "",
   phone: "",
-  location: "",
+  location: "0",
   pronouns: "",
 }
 function VolunteerForm() {
@@ -139,7 +139,7 @@ function VolunteerForm() {
           <Form.Group as={Col} md="6">
             <Form.Label>Location</Form.Label>
             <Form.Control
-              selected={userData.location}
+              value={userData.location}
               name="location"
               onChange={e => saveFormData(e)}
               required
@@ -177,7 +177,7 @@ function VolunteerForm() {
                 />
             ) : (
               <Form.Control
-                selected={userData.pronouns}
+                value={userData.pronouns}
                 name="pronouns"
                 as="select"
                 className="me-sm-2"
