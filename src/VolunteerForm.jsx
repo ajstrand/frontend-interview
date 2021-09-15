@@ -17,7 +17,8 @@ const initialState = {
   email: "",
   phone: "",
   location: "0",
-  pronouns: "",
+  pronouns: {},
+  pronounsNotes:""
 }
 function VolunteerForm() {
   const [validated, setValidated] = useState(false);
@@ -44,6 +45,22 @@ function VolunteerForm() {
       saveFormData(e);
     }
   };
+
+  const checkCheckboxStateForPronouns = (e) => {
+      const {id, checked} = e.target;
+      userData.pronouns[id] = checked;
+      let tempObj = userData.pronouns
+      setUserData(previousState => {
+        return {...previousState, pronouns:tempObj}
+      });
+  };
+
+  const saveCustomPronouns = (e) => {
+    const {value} = e.target;
+    setUserData(previousState => {
+      return {...previousState, pronounsNotes:value}
+    });
+  }
 
   const clearData = () => {
     setUserData(initialState);
@@ -173,40 +190,65 @@ function VolunteerForm() {
             as={Col}
             md="6"
             controlId="pronounID"
-          >
-            <Form.Label>Pronouns</Form.Label>
-            {pronounInput ? (
+          >             
+              <fieldset>
+              <legend>What are your pronouns?</legend>
+              <div key={`default-${"checkbox"}`} className="mb-3">
+              <Form.Check 
+                type={"checkbox"}
+                id={`He-Him`}
+                label={`He/Him`}
+                onChange={e => checkCheckboxStateForPronouns(e)}
+              />
+              <Form.Check 
+                type={"checkbox"}
+                id={`She-Her`}
+                label={`She/Her`}
+                onChange={e => checkCheckboxStateForPronouns(e)}
+              />
+              <Form.Check 
+                type={"checkbox"}
+                id={`They-Them`}
+                label={`They/Them`}
+                onChange={e => checkCheckboxStateForPronouns(e)}
+              />
+              <Form.Check 
+                type={"checkbox"}
+                id={`Not-disclosure`}
+                label={`Prefer not to disclose`}
+                onChange={e => checkSelectValue(e)}
+              />
+              </div>
               <Form.Control
-                value={userData.pronouns}
+                value={userData.pronounsNotes}
                 name="pronouns"
                 type="text"
+                labe={"Notes on pronouns:"}
                 placeholder="Please list your pronouns"
-                onChange={e => saveFormData(e)}
+                onChange={e => saveCustomPronouns(e)}
                 />
-            ) : (
-              <Form.Control
-                value={userData.pronouns}
-                name="pronouns"
-                as="select"
-                className="me-sm-2"
-                onChange={e => checkSelectValue(e)}
-                >
-                <option value="0">What are your pronouns?</option>
-                <option value="he/him">He/Him</option>
-                <option value="she/her">She/Her</option>
-                <option value="they/them">They/Them</option>
-                <option value="input">Other(please provide answer)</option>
-                <option value="Prefer not to disclose">
-                  Prefer not to disclose
-                </option>
-              </Form.Control>
-            )}
-
-            <Form.Text id="whatIsThisUsedFor" muted>
+                 <Form.Text id="whatIsThisUsedFor" muted>
               These are used to help our on the ground staff refer to you by
               your preferred pronouns when introducing you to other volunteers,
               if you don't wish to provide this information you don't have to
             </Form.Text>
+              </fieldset>
+              {/* // <Form.Control
+              //   value={userData.pronouns}
+              //   name="pronouns"
+              //   as="select"
+              //   className="me-sm-2"
+              //   onChange={e => checkSelectValue(e)}
+              //   >
+              //   <option value="0">What are your pronouns?</option>
+              //   <option value="he/him">He/Him</option>
+              //   <option value="she/her">She/Her</option>
+              //   <option value="they/them">They/Them</option>
+              //   <option value="input">Other(please provide answer)</option>
+              //   <option value="Prefer not to disclose">
+              //     Prefer not to disclose
+              //   </option>
+              // </Form.Control> */}
           </Form.Group>
         </Row>
 
